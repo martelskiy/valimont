@@ -1,0 +1,18 @@
+info:
+  contact: {}
+  title: valimont
+  version: "1.0"
+paths:
+  /metrics:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Prometheus metrics
+      tags:
+      - status
+swagger: "2.0"
