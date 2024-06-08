@@ -11,7 +11,7 @@ To start the application, simply run `make` from the root directory where the Ma
 - Builds the binary
 - Runs the binary
 
-After that, navigate to Grafana (`localhost:3000`), open dashboards -> select **valimont**, and view the metrics.
+After that, navigate to Grafana (`localhost:3000`), enter username:password - admin:admin, open dashboards -> select **valimont**, and view the metrics.
 
 ## Addresses
 - Grafana: `localhost:3000`
