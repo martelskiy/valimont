@@ -33,3 +33,5 @@ I decided to abstract away the **web host** and **router**, which was not strict
 
 ## Considerations
 In general, implementing the Otel standard was a "good to have," so Prometheus SDKs were used from the start. In a production environment, I would prefer to drop the application dependency on Prometheus SDKs and instead use Otel libraries to maintain a unified standard for metrics, traces, and logs.
+
+![Architecture](docs/image.png)
