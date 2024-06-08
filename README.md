@@ -26,7 +26,7 @@ The application also implements graceful shutdown, which propagates the Go cance
 ### Frameworks
 - Logs - [slog](https://go.dev/blog/slog)
 - Metrics - [prometheus](https://prometheus.io/)
-- Traces - [opentelemetry](https://opentelemetry.io/)(with prometheus integration that scrapes from otel)
+- Traces - [opentelemetry](https://opentelemetry.io/)
 
 ### Abstractions
 I decided to abstract away the **web host** and **router**, which was not strictly necessary but makes the application entry point (`main.go`) look cleaner.
