@@ -8,6 +8,7 @@ import (
 
 	"github.com/martelskiy/valimont/internal/attestation"
 	"github.com/martelskiy/valimont/internal/metric"
+	"go.opentelemetry.io/otel"
 )
 
 type validator interface {
@@ -28,7 +29,11 @@ func New(validator validator, pollInterval time.Duration) *Listener {
 }
 
 func (l *Listener) Start(ctx context.Context) error {
-	slog.Info("starting the listener with interval")
+	tracer := otel.Tracer("listener")
+	ctx, span := tracer.Start(ctx, "Start")
+	span.AddEvent("starting the listener")
+	defer span.End()
+
 	ticker := time.NewTicker(l.pollInterval)
 	defer ticker.Stop()
 
@@ -44,6 +49,7 @@ func (l *Listener) Start(ctx context.Context) error {
 					return err
 				}
 				slog.Error("error received. Tolerating...")
+				span.RecordError(err)
 				continue
 			}
 

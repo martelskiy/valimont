@@ -13,6 +13,7 @@ import (
 	"io"
 
 	"github.com/martelskiy/valimont/internal/attestation"
+	"go.opentelemetry.io/otel"
 	"golang.org/x/time/rate"
 )
 
@@ -46,8 +47,13 @@ func New(validatorIndex []uint32, rateLimitPerMinute uint8) *Validator {
 
 func (v *Validator) GetAttestations(ctx context.Context) ([]attestation.Model, error) {
 	var attestations []attestation.Model
+	tracer := otel.Tracer("validator")
+	ctx, span := tracer.Start(ctx, "GetAttestations")
+	defer span.End()
+
 	r, err := v.getResponse(ctx)
 	if err != nil {
+		span.RecordError(err)
 		return attestations, errors.Join(err, errors.New("error waiting for rate limiter"))
 	}
 
