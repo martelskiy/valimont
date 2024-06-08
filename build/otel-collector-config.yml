@@ -14,6 +14,8 @@ exporters:
       insecure_skip_verify: true
   prometheus:
     endpoint: "0.0.0.0:9999"
+  otlp/jaeger:
+    endpoint: "http://jaeger:14250"
 
 processors:
   batch:
@@ -24,7 +26,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlp, logging]
+      exporters: [logging, otlp/jaeger]
     metrics:
       receivers: [otlp]
       exporters: [prometheus, logging]
