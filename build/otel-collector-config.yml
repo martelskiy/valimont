@@ -7,15 +7,12 @@ receivers:
 exporters:
   logging:
     loglevel: debug
-  otlp:
-    endpoint: 0.0.0.0:4317
-    tls:
-      insecure: true
-      insecure_skip_verify: true
   prometheus:
     endpoint: "0.0.0.0:9999"
   otlp/jaeger:
-    endpoint: "http://jaeger:14250"
+    endpoint: "jaeger:4317"
+    tls:
+      insecure: true
 
 processors:
   batch:
