@@ -5,11 +5,26 @@ receivers:
       http:
 
 exporters:
+  logging:
+    loglevel: debug
+  otlp:
+    endpoint: 0.0.0.0:4317
+    tls:
+      insecure: true
+      insecure_skip_verify: true
   prometheus:
     endpoint: "0.0.0.0:9999"
 
+processors:
+  batch:
+    timeout: 10s
+
 service:
   pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp, logging]
     metrics:
       receivers: [otlp]
-      exporters: [prometheus]
+      exporters: [prometheus, logging]
